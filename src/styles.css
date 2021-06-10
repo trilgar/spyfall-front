@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  font-size: 14px;
+  color: black;
+  line-height: 1.6;
+  border: none;
+  margin: 0;
+}
+
+.text-white {
+  color: white;
+}
+.has-error{
+  background: #ff4a4f !important;
+}

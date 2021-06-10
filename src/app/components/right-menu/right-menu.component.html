@@ -1,0 +1,45 @@
+<div class="container-small border-bottom-black">
+  <div class="row" *ngIf="currentLocation">
+    <div class="col">
+      <div class="location-image">
+        <img class="location" src="{{getFullImgLink(currentLocation.gameCard.pictureUrl)}}">
+      </div>
+    </div>
+    <div class="col">
+      <div class="row">
+        <h3>Location:</h3>
+      </div>
+      <div class="row">
+        <h4>{{currentLocation.gameCard.name}}</h4>
+      </div>
+      <div class="row">
+        <div class="col text-center location-button">
+          Guess location
+        </div>
+        <div class="col text-center location-button">
+          Map
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-small">
+  <div class="row">
+    <div class="row">
+      <div class="col">
+        <h3>
+          Last Question
+        </h3>
+      </div>
+      <div class="col"></div>
+    </div>
+    <div class="row" *ngIf="currentQuestion">
+      <div class="row">
+        from: {{currentQuestion.question.source}} -> to: {{currentQuestion.question.target}}
+      </div>
+      <div class="row">
+        Answer: {{currentAnswer.answer}}
+      </div>
+    </div>
+  </div>
+</div>

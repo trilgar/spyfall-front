@@ -1,0 +1,17 @@
+.player-info {
+  background-color: #a1dffb;
+}
+.container{
+  padding-left: 50px !important;
+  padding-right: 50px !important;
+}
+.hover-shine-orange:hover{
+  color: #e8a628;
+  cursor: pointer;
+  transition-duration: 1s;
+}
+.hover-shine-red:hover{
+  color: #c33124;
+  cursor: pointer;
+  transition-duration: 1s;
+}

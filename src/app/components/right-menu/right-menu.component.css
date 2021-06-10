@@ -1,0 +1,28 @@
+.location-image {
+  width: 100%;
+}
+
+.container-small {
+  padding-right: 10%;
+  padding-left: 10%;
+  background-color: #a1dffb;
+  margin-left: 0;
+}
+
+.location {
+  width: 350px;
+  height: 250px;
+}
+
+.location-button {
+  border: black 1px solid;
+  border-radius: 3px;
+  background-color: #e8a628;
+  max-width: 30%;
+  margin-left: 10px;
+  margin-top: 30%;
+}
+
+.border-bottom-black {
+  border-bottom: black 1px solid;
+}

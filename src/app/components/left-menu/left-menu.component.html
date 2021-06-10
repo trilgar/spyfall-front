@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row mt-4 player-info" *ngFor="let player of players">
+    <div class="row justify-content-between">
+      <div class="col">
+        <h3>{{player.username}}</h3>
+      </div>
+      <div class="col">
+        <div class="row justify-content-end text-end mt-2">
+          <div class="col-4"></div>
+          <div class="col-5 hover-shine-orange">Ask Question</div>
+          <div class="col-3 hover-shine-orange">Suspect</div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-2" *ngIf="player.suspecting.length>0">
+      <h4>Suspected by:</h4>
+      <div class="row"></div>
+      <div class="row">
+        <div class="col-3" *ngFor="let sp of player.suspecting" >
+          {{sp}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

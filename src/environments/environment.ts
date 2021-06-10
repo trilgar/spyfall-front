@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  wsUrl: 'ws://localhost:8080/game',
+  restUrl: 'http://localhost:8080'
+  // wsUrl: 'ws://game-spyfall.herokuapp.com/game',
+  // restUrl: 'http://game-spyfall.herokuapp.com:8080'
 };
 
 /*

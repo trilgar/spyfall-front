@@ -1,0 +1,42 @@
+.bg-blue {
+  background-color: #007196;
+  color: white;
+}
+
+.top-bar {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.buttons{
+  display: flex;
+  justify-content: flex-end !important;
+  padding-right: 20px ;
+}
+.top-button-stile{
+  color: white;
+  margin-right: 20px;
+}
+.top-button-stile:hover{
+  color: greenyellow;
+  transition-duration: 1s;
+  cursor: pointer;
+}
+
+.main-box {
+  height: 2000px !important;
+}
+
+.width-50 {
+  width: 50%;
+}
+
+.right-menu {
+  width: 50% !important;
+  float: right;
+}
+.left-menu {
+  width: 50% !important;
+  float: left;
+  border-left: #007196 2px solid;
+}
