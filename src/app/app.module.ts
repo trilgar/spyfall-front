@@ -11,6 +11,8 @@ import {CommonModule} from "@angular/common";
 import { LoginComponent } from './components/login/login.component';
 import { LeftMenuComponent } from './components/left-menu/left-menu.component';
 import { RightMenuComponent } from './components/right-menu/right-menu.component';
+import { QuestionComponent } from './components/question/question.component';
+import { AskQuestionComponent } from './components/ask-question/ask-question.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { RightMenuComponent } from './components/right-menu/right-menu.component
     MainBoardComponent,
     LoginComponent,
     LeftMenuComponent,
-    RightMenuComponent
+    RightMenuComponent,
+    QuestionComponent,
+    AskQuestionComponent
   ],
   imports: [
     BrowserModule,

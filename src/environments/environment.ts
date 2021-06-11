@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   wsUrl: 'ws://localhost:8080/game',
   restUrl: 'http://localhost:8080'
-  // wsUrl: 'ws://game-spyfall.herokuapp.com/game',
-  // restUrl: 'http://game-spyfall.herokuapp.com:8080'
+  // wsUrl: 'wss://game-spyfall.herokuapp.com/game',
+  // restUrl: 'http://game-spyfall.herokuapp.com'
 };
 
 /*

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Answer, GameCardDto, QuestionDto, WebsocketService} from "../../services/websocket/websocket.service";
 import {environment} from "../../../environments/environment";
 
@@ -12,20 +12,29 @@ export class RightMenuComponent implements OnInit {
   currentQuestion: QuestionDto;
   previousQuestion: QuestionDto;
   currentAnswer: Answer;
+  pendingQuestion = false;
 
   constructor(private websocketService: WebsocketService) {
   }
 
   ngOnInit(): void {
-    this.websocketService.currentGameCardMessage.subscribe(gameCard => this.currentLocation = gameCard);
+    this.websocketService.currentGameCardMessage.subscribe(gameCard => {
+      this.currentLocation = gameCard;
+    });
     this.websocketService.currentQuestionMessage.subscribe(questionDto => {
       this.previousQuestion = this.currentQuestion;
       this.currentQuestion = questionDto;
+      if (questionDto.message !== '') {
+        this.pendingQuestion = true;
+      }
     });
-    this.websocketService.currentAnswerMessage.subscribe(answer => this.currentAnswer = answer);
+    this.websocketService.currentAnswerMessage.subscribe(answer => {
+      this.currentAnswer = answer;
+      this.pendingQuestion = false;
+    });
   }
 
   getFullImgLink(shortLink: string): string {
-    return environment.restUrl+'/'+shortLink;
+    return environment.restUrl + '/' + shortLink;
   }
 }

@@ -36,6 +36,12 @@ export class WebsocketService {
   private playerListMessageSource = new Subject<Player[]>();
   currentPlayerListMessage = this.playerListMessageSource.asObservable();
 
+  private hostMessageSource = new Subject<string>();
+  currentHostMessage = this.hostMessageSource.asObservable();
+
+  private questionGrantedMessageSource = new Subject<string>();
+  currentQuestionGrantedMessage = this.questionGrantedMessageSource.asObservable();
+
   private ws: WebSocket;
   openedStatus: boolean;
 
@@ -89,7 +95,7 @@ export class WebsocketService {
         break;
       }
       case WsResponseType.ERROR: {
-        console.warn(message.data)
+        alert(message.data)
         break;
       }
       case WsResponseType.INFO: {
@@ -129,8 +135,16 @@ export class WebsocketService {
         this.conclusionMessageSource.next(message.data);
         break;
       }
-      case DataType.PLAYER_LIST_DATA_TYPE:{
+      case DataType.PLAYER_LIST_DATA_TYPE: {
         this.playerListMessageSource.next(message.data);
+        break;
+      }
+      case DataType.HOST_DATA_TYPE: {
+        this.hostMessageSource.next(message.data);
+        break;
+      }
+      case DataType.QUESTION_GRANTED_PERSON_DATA_TYPE: {
+        this.questionGrantedMessageSource.next(message.data);
         break;
       }
       default: {
@@ -164,7 +178,8 @@ export enum WsMessageType {
   SUSPECT = 'SUSPECT',
   GUESSLOCATION = 'GUESSLOCATION',
   PING = 'PING',
-  CONNECTED='CONNECTED'
+  CONNECTED = 'CONNECTED',
+  GETHOST = 'GETHOST'
 }
 
 export class ResponceMessage {
@@ -188,7 +203,9 @@ export enum DataType {
   SUSPECT_MAP_DATA_TYPE = 'suspectMap',
   GAME_CONCLUSION_DATA_TYPE = 'conclusion',
   SPY_BUSTED_DATA_TYPE = 'spyBusted',
-  PLAYER_LIST_DATA_TYPE = 'playerList'
+  PLAYER_LIST_DATA_TYPE = 'playerList',
+  HOST_DATA_TYPE = 'host',
+  QUESTION_GRANTED_PERSON_DATA_TYPE = 'questionGranted'
 }
 
 export class Card {
@@ -244,7 +261,8 @@ export class Suspect {
   suspecting: string;
   suspected: string;
 }
-export class Player{
+
+export class Player {
   username: string;
   suspecting: string[];
 }

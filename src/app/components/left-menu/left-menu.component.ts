@@ -10,14 +10,15 @@ import {Router} from "@angular/router";
 export class LeftMenuComponent implements OnInit {
   token: string;
   username: string;
+  @Input() questionGranted: string;
   @Input() players: Player[];
 
   constructor(private websocketService: WebsocketService, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.token = <string>localStorage.getItem("token")
-    this.username = <string>localStorage.getItem("username")
+    this.token = <string>localStorage.getItem("token");
+    this.username = <string>localStorage.getItem("username");
   }
 
 }

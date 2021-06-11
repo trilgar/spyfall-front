@@ -6,16 +6,16 @@
   <div class="col-lg-4">
     <div class="row flex-column">
       <div class="col mt-2 buttons">
-        <div class="top-button-stile" (click)="startGame()">Start Game</div>
-        <div class="top-button-stile" (click)="restartGame()">Restart Game</div>
+        <div class="top-button-stile" *ngIf="username === hostname" (click)="startGame()">Start Game</div>
+        <div class="top-button-stile" *ngIf="username === hostname" (click)="restartGame()">Restart Game</div>
       </div>
     </div>
   </div>
 </div>
-
+{{questionGranted}}
 <div class="row main-box">
   <div class="right-menu">
-    <app-left-menu [players]="players"></app-left-menu>
+    <app-left-menu [questionGranted]="questionGranted" [players]="players"></app-left-menu>
   </div>
   <div class="left-menu">
     <app-right-menu></app-right-menu>

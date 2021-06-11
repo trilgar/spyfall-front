@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth/auth.service";
 import {Message, Player, WebsocketService, WsMessageType} from "../../services/websocket/websocket.service";
 import {Router} from "@angular/router";
+import {take} from "rxjs/operators";
 
 @Component({
   selector: 'app-main-board',
@@ -12,6 +13,8 @@ export class MainBoardComponent implements OnInit {
   token: string;
   username: string;
   players: Player[];
+  hostname: string;
+  questionGranted: string;
 
   constructor(private authService: AuthService, private websocketService: WebsocketService, private router: Router) {
   }
@@ -26,17 +29,23 @@ export class MainBoardComponent implements OnInit {
     this.websocketService.currentInfoMessage.subscribe(info => {
       // todo proper info display
       console.log('INFORMATION: ', info);
+      if(info === 'New player connected. Hi, '+this.username){
+      }
     })
     this.websocketService.currentPlayerListMessage.subscribe(players => {
       this.players = players;
       console.log('renewed player list', players);
     });
+    this.websocketService.currentQuestionGrantedMessage.subscribe(granted => this.questionGranted = granted);
+    this.websocketService.currentHostMessage.pipe(take(1)).subscribe(host => this.hostname = host);
+
     this.websocketService.sendMessage(new Message(WsMessageType.REGISTER, this.token, {}));
     this.websocketService.sendMessage(new Message(WsMessageType.CONNECTED, this.token, {}));
+    this.websocketService.sendMessage(new Message(WsMessageType.GETHOST, this.token, {}));
   }
 
   startGame(): void {
-    this.websocketService.sendMessage(new Message(WsMessageType.STARTGAME,this.token, {}));
+    this.websocketService.sendMessage(new Message(WsMessageType.STARTGAME, this.token, {}));
   }
 
   restartGame(): void {
