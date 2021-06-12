@@ -24,7 +24,7 @@
   </div>
 </div>
 <div class="container-small">
-  <div class="row">
+  <div class="row" *ngIf="currentQuestion">
     <div class="row">
       <div class="col">
         <h3>
@@ -33,12 +33,31 @@
       </div>
       <div class="col"></div>
     </div>
-    <div class="row" *ngIf="currentQuestion">
+    <div class="row" >
       <div class="row">
         from: {{currentQuestion.question.source}} -> to: {{currentQuestion.question.target}}
       </div>
       <div class="row">
+        Question: {{currentQuestion.question.question}}
+      </div>
+      <div class="row" *ngIf="currentAnswer">
         Answer: {{currentAnswer.answer}}
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="previousAnswer!=null && previousQuestion!=null">
+    <div class="row">
+      Previous Question:
+    </div>
+    <div>
+      <div class="row">
+        from: {{previousQuestion.question.source}} -> to: {{previousQuestion.question.target}}
+      </div>
+      <div class="row">
+        Question: {{previousQuestion.question.question}}
+      </div>
+      <div class="row" *ngIf="currentAnswer">
+        Answer: {{previousAnswer.answer}}
       </div>
     </div>
   </div>

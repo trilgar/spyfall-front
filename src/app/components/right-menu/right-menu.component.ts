@@ -12,6 +12,7 @@ export class RightMenuComponent implements OnInit {
   currentQuestion: QuestionDto;
   previousQuestion: QuestionDto;
   currentAnswer: Answer;
+  previousAnswer: Answer;
   pendingQuestion = false;
 
   constructor(private websocketService: WebsocketService) {
@@ -26,6 +27,7 @@ export class RightMenuComponent implements OnInit {
       }
     });
     this.websocketService.currentAnswerMessage.subscribe(answer => {
+      this.previousAnswer = this.currentAnswer;
       this.currentAnswer = answer;
       this.pendingQuestion = false;
     });
