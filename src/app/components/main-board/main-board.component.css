@@ -24,7 +24,7 @@
 }
 
 .main-box {
-  height: 2000px !important;
+  min-height: 90vh !important;
 }
 
 .width-50 {

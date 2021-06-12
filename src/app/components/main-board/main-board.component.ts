@@ -50,6 +50,7 @@ export class MainBoardComponent implements OnInit {
     this.websocketService.sendMessage(new Message(WsMessageType.REGISTER, this.token, {}));
     this.websocketService.sendMessage(new Message(WsMessageType.CONNECTED, this.token, {}));
     this.websocketService.sendMessage(new Message(WsMessageType.GETHOST, this.token, {}));
+    this.websocketService.sendMessage(new Message(WsMessageType.GETLOCATION, this.token,{}));
   }
 
   startGame(): void {

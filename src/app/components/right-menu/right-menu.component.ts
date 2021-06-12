@@ -21,16 +21,21 @@ export class RightMenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.websocketService.currentQuestionMessage.subscribe(questionDto => {
-      this.previousQuestion = this.currentQuestion;
       this.currentQuestion = questionDto;
-      if (questionDto.question.target ===this.username) {
+      if (questionDto.question.target ===this.username ) {
         this.pendingQuestion = true;
       }
     });
     this.websocketService.currentAnswerMessage.subscribe(answer => {
+      this.previousQuestion = this.currentQuestion;
+      this.currentQuestion.message = 'erase';
       this.previousAnswer = this.currentAnswer;
       this.currentAnswer = answer;
       this.pendingQuestion = false;
+
+      console.log('CURRENT ANSWER: ', this.currentAnswer);
+      console.log('PREVIOUS QUESTION: ', this.previousQuestion);
+
     });
   }
 

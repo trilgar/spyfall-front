@@ -126,7 +126,7 @@ export class WebsocketService {
         break;
       }
       case DataType.ANSWER_DATA_TYPE: {
-        this.questionMessageSource.next(message.data);
+        this.answerMessageSource.next(message.data);
         break;
       }
       case DataType.SUSPECT_MAP_DATA_TYPE: {
@@ -153,6 +153,7 @@ export class WebsocketService {
         this.questionGrantedMessageSource.next(message.data);
         break;
       }
+
       default: {
         throw "Unknown data type. Cannot handle data type" + message.dataType;
       }
@@ -185,7 +186,8 @@ export enum WsMessageType {
   GUESSLOCATION = 'GUESSLOCATION',
   PING = 'PING',
   CONNECTED = 'CONNECTED',
-  GETHOST = 'GETHOST'
+  GETHOST = 'GETHOST',
+  GETLOCATION='GETLOCATION'
 }
 
 export class ResponceMessage {
