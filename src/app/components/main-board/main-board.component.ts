@@ -36,8 +36,6 @@ export class MainBoardComponent implements OnInit {
     this.websocketService.currentInfoMessage.subscribe(info => {
       // todo proper info display
       console.log('INFORMATION: ', info);
-      if(info === 'New player connected. Hi, '+this.username){
-      }
     });
     this.websocketService.currentGameCardMessage.subscribe(gameCard => {
       this.currentLocation = gameCard;

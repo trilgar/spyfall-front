@@ -1,1 +1,18 @@
-<p>ask-question works!</p>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<div  tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Question to {{targetUser}}</h5>
+      </div>
+      <div class="modal-body">
+        <input type="text" placeholder="your question" [(ngModel)]="questionText">
+      </div>
+      <div class="modal-footer justify-content-start">
+        <button type="button" class="btn btn-primary" (click)="askQuestion()">Send Question</button>
+      </div>
+    </div>
+  </div>
+</div>

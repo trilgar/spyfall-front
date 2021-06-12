@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Message, Player, WebsocketService, WsMessageType} from "../../services/websocket/websocket.service";
+import {Player, WebsocketService} from "../../services/websocket/websocket.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -12,6 +12,8 @@ export class LeftMenuComponent implements OnInit {
   username: string;
   @Input() questionGranted: string;
   @Input() players: Player[];
+
+  targetUser:string;
 
   constructor(private websocketService: WebsocketService, private router: Router) {
   }
