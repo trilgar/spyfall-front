@@ -21,6 +21,11 @@ export class LeftMenuComponent implements OnInit {
   ngOnInit(): void {
     this.token = <string>localStorage.getItem("token");
     this.username = <string>localStorage.getItem("username");
+    this.websocketService.currentQuestionMessage.subscribe(questionDto => {
+      if (questionDto.question.source === this.username) {
+        this.targetUser = '';
+      }
+    })
   }
 
 }
