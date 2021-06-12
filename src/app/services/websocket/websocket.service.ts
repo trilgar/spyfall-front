@@ -265,7 +265,7 @@ export enum SuspectAction {
 }
 
 export class Suspect {
-  action: SuspectAction;
+  suspectAction: SuspectAction;
   suspecting: string;
   suspected: string;
 }

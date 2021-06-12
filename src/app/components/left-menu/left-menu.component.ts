@@ -45,10 +45,11 @@ export class LeftMenuComponent implements OnInit {
     const suspect = new Suspect();
     suspect.suspected = suspected;
     suspect.suspecting = this.username;
-    if (suspectedPlayer.suspecting.includes(this.username)) {
-      suspect.action = SuspectAction.SET;
+    if (!suspectedPlayer.suspecting.includes(this.username)) {
+      suspect.suspectAction = SuspectAction.SET;
     } else {
-      suspect.action = SuspectAction.REMOVE;
+      console.log(suspectedPlayer.suspecting);
+      suspect.suspectAction = SuspectAction.REMOVE;
     }
     this.websocketService.sendMessage(new Message(WsMessageType.SUSPECT, this.token, suspect))
   }
