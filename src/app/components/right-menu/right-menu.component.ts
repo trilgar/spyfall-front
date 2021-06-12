@@ -14,6 +14,7 @@ export class RightMenuComponent implements OnInit {
   currentAnswer: Answer;
   previousAnswer: Answer;
   pendingQuestion = false;
+  username = <string>localStorage.getItem("username");
 
   constructor(private websocketService: WebsocketService) {
   }
@@ -22,7 +23,7 @@ export class RightMenuComponent implements OnInit {
     this.websocketService.currentQuestionMessage.subscribe(questionDto => {
       this.previousQuestion = this.currentQuestion;
       this.currentQuestion = questionDto;
-      if (questionDto.message !== '') {
+      if (questionDto.question.target ===this.username) {
         this.pendingQuestion = true;
       }
     });
