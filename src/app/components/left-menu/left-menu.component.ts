@@ -13,7 +13,7 @@ export class LeftMenuComponent implements OnInit {
   @Input() questionGranted: string;
   @Input() players: Player[];
 
-  targetUser:string;
+  targetUser = '';
 
   constructor(private websocketService: WebsocketService, private router: Router) {
   }
