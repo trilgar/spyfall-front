@@ -7,10 +7,10 @@
       <div class="col">
         <div class="row justify-content-end text-end mt-2">
           <div class="col-4"></div>
-          <div class="col-5 hover-shine-orange" *ngIf="questionGranted === username"
+          <div class="col-5 hover-shine-orange" *ngIf="questionGranted === username && username!=player.username"
                (click)="targetUser=player.username">Ask Question
           </div>
-          <div class="col-3 hover-shine-orange">Suspect</div>
+          <div class="col-3 hover-shine-orange" (click)="suspect(player.username)">Suspect</div>
         </div>
       </div>
     </div>

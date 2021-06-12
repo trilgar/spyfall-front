@@ -22,7 +22,7 @@ export class RightMenuComponent implements OnInit {
   ngOnInit(): void {
     this.websocketService.currentQuestionMessage.subscribe(questionDto => {
       this.currentQuestion = questionDto;
-      if (questionDto.question.target ===this.username ) {
+      if (questionDto.question.target === this.username) {
         this.pendingQuestion = true;
       }
     });
@@ -41,5 +41,16 @@ export class RightMenuComponent implements OnInit {
 
   getFullImgLink(shortLink: string): string {
     return environment.restUrl + '/' + shortLink;
+  }
+
+  determineLocation(name: string): string {
+    if (name === 'шпион') {
+      return 'неизвестна';
+    }
+    return name;
+  }
+
+  getMapLink(number: number):string {
+    return environment.restUrl+"/api/images/map"
   }
 }

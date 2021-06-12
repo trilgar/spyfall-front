@@ -21,8 +21,12 @@
   max-width: 30%;
   margin-left: 10px;
   margin-top: 30%;
+  cursor: pointer;
 }
 
 .border-bottom-black {
   border-bottom: black 1px solid;
+}
+.text-decoration-none{
+  color: black;
 }

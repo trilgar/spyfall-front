@@ -13,3 +13,9 @@ body {
 .has-error{
   background: #ff4a4f !important;
 }
+
+.relative-center {
+  position: relative;
+  top: 40px;
+  left: 40px;
+}

@@ -1,5 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Player, WebsocketService} from "../../services/websocket/websocket.service";
+import {
+  Message,
+  Player,
+  Suspect,
+  SuspectAction,
+  WebsocketService,
+  WsMessageType
+} from "../../services/websocket/websocket.service";
 import {Router} from "@angular/router";
 
 @Component({
@@ -28,4 +35,21 @@ export class LeftMenuComponent implements OnInit {
     })
   }
 
+  suspect(suspected: string): void {
+    const suspectedPlayer = this.players.find(player => {
+      return player.username === suspected;
+    });
+    if (suspectedPlayer == null) {
+      return;
+    }
+    const suspect = new Suspect();
+    suspect.suspected = suspected;
+    suspect.suspecting = this.username;
+    if (suspectedPlayer.suspecting.includes(this.username)) {
+      suspect.action = SuspectAction.SET;
+    } else {
+      suspect.action = SuspectAction.REMOVE;
+    }
+    this.websocketService.sendMessage(new Message(WsMessageType.SUSPECT, this.token, suspect))
+  }
 }
