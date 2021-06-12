@@ -1,6 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth/auth.service";
-import {Message, Player, WebsocketService, WsMessageType} from "../../services/websocket/websocket.service";
+import {
+  GameCardDto,
+  Message,
+  Player,
+  WebsocketService,
+  WsMessageType
+} from "../../services/websocket/websocket.service";
 import {Router} from "@angular/router";
 import {take} from "rxjs/operators";
 
@@ -15,6 +21,7 @@ export class MainBoardComponent implements OnInit {
   players: Player[];
   hostname: string;
   questionGranted: string;
+  currentLocation: GameCardDto;
 
   constructor(private authService: AuthService, private websocketService: WebsocketService, private router: Router) {
   }
@@ -31,7 +38,10 @@ export class MainBoardComponent implements OnInit {
       console.log('INFORMATION: ', info);
       if(info === 'New player connected. Hi, '+this.username){
       }
-    })
+    });
+    this.websocketService.currentGameCardMessage.subscribe(gameCard => {
+      this.currentLocation = gameCard;
+    });
     this.websocketService.currentPlayerListMessage.subscribe(players => {
       this.players = players;
       console.log('renewed player list', players);

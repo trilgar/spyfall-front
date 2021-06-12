@@ -8,7 +8,7 @@ import {environment} from "../../../environments/environment";
   styleUrls: ['./right-menu.component.css']
 })
 export class RightMenuComponent implements OnInit {
-  currentLocation: GameCardDto;
+  @Input() currentLocation: GameCardDto;
   currentQuestion: QuestionDto;
   previousQuestion: QuestionDto;
   currentAnswer: Answer;
@@ -18,9 +18,6 @@ export class RightMenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.websocketService.currentGameCardMessage.subscribe(gameCard => {
-      this.currentLocation = gameCard;
-    });
     this.websocketService.currentQuestionMessage.subscribe(questionDto => {
       this.previousQuestion = this.currentQuestion;
       this.currentQuestion = questionDto;
