@@ -1,6 +1,16 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Answer, GameCardDto, QuestionDto, WebsocketService} from "../../services/websocket/websocket.service";
+import {
+  Answer,
+  GameCardDto,
+  Message,
+  QuestionDto,
+  WebsocketService,
+  WsMessageType
+} from "../../services/websocket/websocket.service";
 import {environment} from "../../../environments/environment";
+import {GuessLocationComponent} from "../guess-location/guess-location.component";
+import {MatDialog} from "@angular/material/dialog";
+import {QuestionComponent} from "../question/question.component";
 
 @Component({
   selector: 'app-right-menu',
@@ -15,15 +25,17 @@ export class RightMenuComponent implements OnInit {
   previousAnswer: Answer;
   pendingQuestion = false;
   username = <string>localStorage.getItem("username");
+  spyGuessLocation: string | null;
+  token = <string>localStorage.getItem("token");
 
-  constructor(private websocketService: WebsocketService) {
+  constructor(private websocketService: WebsocketService, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
     this.websocketService.currentQuestionMessage.subscribe(questionDto => {
       this.currentQuestion = questionDto;
       if (questionDto.question.target === this.username) {
-        this.pendingQuestion = true;
+        this.answerQuestion(questionDto);
       }
     });
     this.websocketService.currentAnswerMessage.subscribe(answer => {
@@ -39,6 +51,21 @@ export class RightMenuComponent implements OnInit {
     });
   }
 
+  answerQuestion(questionDto: QuestionDto): void {
+    const dialogRef = this.dialog.open(QuestionComponent, {
+      data: questionDto
+    });
+    let answerMessage ='';
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Answer text: ', result);
+      answerMessage = result;
+      const answer = new Answer();
+      answer.question = this.currentQuestion.question.question;
+      answer.answer = answerMessage;
+      this.websocketService.sendMessage(new Message(WsMessageType.ANSWER, this.token, answer))
+    });
+  }
+
   getFullImgLink(shortLink: string): string {
     return environment.restUrl + '/' + shortLink;
   }
@@ -50,7 +77,19 @@ export class RightMenuComponent implements OnInit {
     return name;
   }
 
-  getMapLink(number: number):string {
-    return environment.restUrl+"/api/images/map"
+  getMapLink(number: number): string {
+    return environment.restUrl + "/api/images/map"
+  }
+
+  guessLocation(): void {
+    const dialogRef = this.dialog.open(GuessLocationComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.spyGuessLocation = result;
+      if (this.spyGuessLocation != null) {
+        this.websocketService.sendMessage(new Message(WsMessageType.GUESSLOCATION, this.token, this.spyGuessLocation));
+      }
+    });
   }
 }

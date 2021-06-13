@@ -1,0 +1,23 @@
+<div *ngIf="data.location==='шпион'">
+  <h1 mat-dialog-title>Busted!</h1>
+  <div mat-dialog-content>
+    <p>{{data.message}}</p>
+    <mat-form-field>
+      <mat-label>Location Name:</mat-label>
+      <input matInput minlength="1" type="text" [(ngModel)]="locationName">
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="locationName">Submit</button>
+  </div>
+</div>
+
+<div *ngIf="data.location !== 'шпион'">
+  <h1 mat-dialog-title>Spy Busted!</h1>
+  <div mat-dialog-content>
+    <p>{{data.message}} He needs to guess the location name right now.</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button mat-dialog-close>Ok</button>
+  </div>
+</div>

@@ -1,5 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Message, Question, WebsocketService, WsMessageType} from "../../services/websocket/websocket.service";
+import {Component, Inject, Input, OnInit} from '@angular/core';
+import {
+  Message,
+  Question,
+  QuestionDto,
+  WebsocketService,
+  WsMessageType
+} from "../../services/websocket/websocket.service";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-ask-question',
@@ -9,22 +16,14 @@ import {Message, Question, WebsocketService, WsMessageType} from "../../services
 export class AskQuestionComponent implements OnInit {
   token = <string>localStorage.getItem("token");
   username = <string>localStorage.getItem("username")
-  @Input() targetUser: string;
+  targetUser: string;
   questionText = '';
 
-  constructor(private websocketService: WebsocketService) {
+  constructor(private websocketService: WebsocketService, @Inject(MAT_DIALOG_DATA) public data: string) {
   }
 
   ngOnInit(): void {
   }
 
-  askQuestion(): void {
-    const question = new Question();
-    question.source = this.username;
-    question.target = this.targetUser;
-    question.question = this.questionText;
-    this.websocketService.sendMessage(new Message(WsMessageType.QUESTION, this.token, question));
-    this.targetUser = '';
-  }
 
 }

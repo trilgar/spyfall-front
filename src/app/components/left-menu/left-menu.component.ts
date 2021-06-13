@@ -1,13 +1,16 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {
   Message,
-  Player,
+  Player, Question,
   Suspect,
   SuspectAction,
   WebsocketService,
   WsMessageType
 } from "../../services/websocket/websocket.service";
 import {Router} from "@angular/router";
+import {GuessLocationComponent} from "../guess-location/guess-location.component";
+import {MatDialog} from "@angular/material/dialog";
+import {AskQuestionComponent} from "../ask-question/ask-question.component";
 
 @Component({
   selector: 'app-left-menu',
@@ -22,7 +25,7 @@ export class LeftMenuComponent implements OnInit {
 
   targetUser = '';
 
-  constructor(private websocketService: WebsocketService, private router: Router) {
+  constructor(private websocketService: WebsocketService, private router: Router, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -52,5 +55,19 @@ export class LeftMenuComponent implements OnInit {
       suspect.suspectAction = SuspectAction.REMOVE;
     }
     this.websocketService.sendMessage(new Message(WsMessageType.SUSPECT, this.token, suspect))
+  }
+
+  askQuestion(username: string) {
+    const dialogRef = this.dialog.open(AskQuestionComponent, {
+      data: username
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      const question = new Question();
+      question.source = this.username;
+      question.target = username;
+      question.question = result;
+      this.websocketService.sendMessage(new Message(WsMessageType.QUESTION, this.token, question));
+    });
   }
 }

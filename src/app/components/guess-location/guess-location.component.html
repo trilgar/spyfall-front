@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Guess location</h1>
+<div mat-dialog-content>
+  <p>Enter location name. You have only one chance to guess it right!</p>
+  <mat-form-field>
+    <mat-label>Location Name:</mat-label>
+    <input matInput [(ngModel)]="locationName">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button [mat-dialog-close]="locationName">Submit</button>
+</div>

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth/auth.service";
 import {
-  GameCardDto,
+  GameCardDto, GameConclusion,
   Message,
   Player,
   WebsocketService,
@@ -9,6 +9,10 @@ import {
 } from "../../services/websocket/websocket.service";
 import {Router} from "@angular/router";
 import {take} from "rxjs/operators";
+import {GuessLocationComponent} from "../guess-location/guess-location.component";
+import {MatDialog} from "@angular/material/dialog";
+import {SpyBustedComponent} from "../spy-busted/spy-busted.component";
+import {GameConclusionComponent} from "../game-conclusion/game-conclusion.component";
 
 @Component({
   selector: 'app-main-board',
@@ -23,7 +27,7 @@ export class MainBoardComponent implements OnInit {
   questionGranted: string;
   currentLocation: GameCardDto;
 
-  constructor(private authService: AuthService, private websocketService: WebsocketService, private router: Router) {
+  constructor(private authService: AuthService, private websocketService: WebsocketService, private router: Router, private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -46,11 +50,28 @@ export class MainBoardComponent implements OnInit {
     });
     this.websocketService.currentQuestionGrantedMessage.subscribe(granted => this.questionGranted = granted);
     this.websocketService.currentHostMessage.pipe(take(1)).subscribe(host => this.hostname = host);
+    this.websocketService.currentSpyBustedMessage.subscribe(message => {
+      const dialogRef = this.dialog.open(SpyBustedComponent, {
+        data: {location: this.currentLocation.gameCard.name, message: message}
+      });
+      dialogRef.afterClosed().subscribe(locationName => {
+        if(locationName!=null && locationName.length > 0 && this.currentLocation.gameCard.name === 'шпион'){
+          this.websocketService.sendMessage(new Message(WsMessageType.GUESSLOCATION, this.token, locationName));
+        }
+      });
+    });
+
+    this.websocketService.currentConclusionMessage.subscribe(conclusion => {
+      this.dialog.open(GameConclusionComponent, {
+        data: conclusion
+      });
+    })
+
 
     this.websocketService.sendMessage(new Message(WsMessageType.REGISTER, this.token, {}));
     this.websocketService.sendMessage(new Message(WsMessageType.CONNECTED, this.token, {}));
     this.websocketService.sendMessage(new Message(WsMessageType.GETHOST, this.token, {}));
-    this.websocketService.sendMessage(new Message(WsMessageType.GETLOCATION, this.token,{}));
+    this.websocketService.sendMessage(new Message(WsMessageType.GETLOCATION, this.token, {}));
   }
 
   startGame(): void {

@@ -1,3 +1,4 @@
+
 <div class="container-small border-bottom-black">
   <div class="row" *ngIf="currentLocation">
     <div class="col">
@@ -13,7 +14,7 @@
         <h4>{{determineLocation(currentLocation.gameCard.name)}}</h4>
       </div>
       <div class="row">
-        <div class="col text-center location-button" *ngIf="currentLocation.gameCard.name =='шпион'">
+        <div class="col text-center location-button" (click)="guessLocation()" *ngIf="currentLocation.gameCard.name =='шпион'">
           Guess location
         </div>
         <div class="col text-center location-button">
@@ -25,9 +26,8 @@
     </div>
   </div>
 </div>
-<app-question [questionDto]="currentQuestion" *ngIf="pendingQuestion"></app-question>
 <div class="container-small">
-  <div class="row" *ngIf="currentQuestion!=null && currentQuestion.message!='erase'">
+  <div class="row mt-2" *ngIf="currentQuestion!=null && currentQuestion.message!='erase'">
     <div class="row">
       <div class="col">
         <h3>

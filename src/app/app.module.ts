@@ -13,7 +13,14 @@ import { LeftMenuComponent } from './components/left-menu/left-menu.component';
 import { RightMenuComponent } from './components/right-menu/right-menu.component';
 import { QuestionComponent } from './components/question/question.component';
 import { AskQuestionComponent } from './components/ask-question/ask-question.component';
-
+import {MatDialogModule} from '@angular/material/dialog';
+import { GuessLocationComponent } from './components/guess-location/guess-location.component';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { SpyBustedComponent } from './components/spy-busted/spy-busted.component';
+import { GameConclusionComponent } from './components/game-conclusion/game-conclusion.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +29,10 @@ import { AskQuestionComponent } from './components/ask-question/ask-question.com
     LeftMenuComponent,
     RightMenuComponent,
     QuestionComponent,
-    AskQuestionComponent
+    AskQuestionComponent,
+    GuessLocationComponent,
+    SpyBustedComponent,
+    GameConclusionComponent
   ],
   imports: [
     BrowserModule,
@@ -31,9 +41,15 @@ import { AskQuestionComponent } from './components/ask-question/ask-question.com
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-    CommonModule
+    CommonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    BrowserAnimationsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [GuessLocationComponent,QuestionComponent,AskQuestionComponent, SpyBustedComponent, GameConclusionComponent]
 })
 export class AppModule { }
