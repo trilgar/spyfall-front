@@ -87,7 +87,7 @@ export class RightMenuComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.spyGuessLocation = result;
-      if (this.spyGuessLocation != null) {
+      if (this.spyGuessLocation != null && this.spyGuessLocation!='none') {
         this.websocketService.sendMessage(new Message(WsMessageType.GUESSLOCATION, this.token, this.spyGuessLocation));
       }
     });
