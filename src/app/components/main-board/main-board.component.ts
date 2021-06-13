@@ -34,13 +34,8 @@ export class MainBoardComponent implements OnInit {
     if (localStorage.getItem("token") === null || localStorage.getItem("username") === null) {
       this.router.navigate(['login']);
     }
-    this.token = <string>localStorage.getItem("token")
-    this.username = <string>localStorage.getItem("username")
-
-    this.websocketService.currentInfoMessage.subscribe(info => {
-      // todo proper info display
-      console.log('INFORMATION: ', info);
-    });
+    this.token = <string>localStorage.getItem("token");
+    this.username = <string>localStorage.getItem("username");
     this.websocketService.currentGameCardMessage.subscribe(gameCard => {
       this.currentLocation = gameCard;
     });

@@ -56,9 +56,10 @@ export class WebsocketService {
     this.connect();
     this.ws.onmessage = (data: MessageEvent) => {
       const parsedData = JSON.parse(data.data);
-      // todo remove
       if(parsedData.event!==WsResponseType.PING){
         console.log('message', data.data);
+      }else{
+        console.log('server: PONG');
       }
       this.handleMessage(parsedData);
     };
@@ -75,9 +76,11 @@ export class WebsocketService {
   }
 
   sendMessage(msg: any): void {
-    // todo remove if statement
     if(msg.event !== WsMessageType.PING){
       console.log('sending message', this.convert(msg));
+    }
+    else{
+      console.log('client: PING');
     }
     if (this.ws.readyState !== 1) {
       setTimeout(() => this.ws.send(this.convert(msg)), 400);
@@ -105,6 +108,7 @@ export class WebsocketService {
         break;
       }
       case WsResponseType.INFO: {
+        console.info(message.data);
         this.infoMessageSource.next(message.data);
         break;
       }
